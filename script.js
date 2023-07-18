@@ -63,6 +63,13 @@ class Player {
         ctx.fillRect(this.x, this.y, this.radius, 10);
     }
 }
+const player = new Player();
 // Bubbles
 // Animation Loop
-
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    player.update();
+    player.draw();
+    requestAnimationFrame(animate);
+}
+animate();
