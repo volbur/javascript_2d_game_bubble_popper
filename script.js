@@ -95,6 +95,9 @@ function handleBubbles(){
     for (let i = 0; i < bubblesArray.length; i++){
         bubblesArray[i].update();
         bubblesArray[i].draw();
+    }
+    //Duct tape for fixing inexplicable flashes of bubbles
+    for (let i = 0; i < bubblesArray.length; i++) {
         if (bubblesArray[i].y < 0) {
             bubblesArray.splice(i, 1);
         }
