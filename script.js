@@ -75,6 +75,7 @@ class Bubbles {
         this.speed = Math.random() * 5 + 1;
         this.distance;
         this.counted = false;
+        this.sound = Math.random() <= 0.5 ? "sound1" : "sound2";
     }
     update(){
         this.y -= this.speed;
@@ -91,6 +92,12 @@ class Bubbles {
         ctx.stroke();
     }
 }
+
+const bubblePop1 = document.createElement("audio");
+bubblePop1.src = "./scr/sound/Plop.ogg";
+const bubblePop2 = document.createElement("audio");
+bubblePop2.src = "./scr/sound/bubbles-single1.wav";
+
 function handleBubbles(){
     if (gameFrame % 50 == 0){
         bubblesArray.push(new Bubbles());
@@ -106,6 +113,11 @@ function handleBubbles(){
             bubblesArray.splice(i, 1);
         }
         if (bubblesArray[i].distance < bubblesArray[i].radius + player.radius) {
+            if (bubblesArray[i].sound === "sound1") {
+                bubblePop1.play();
+            } else if (bubblesArray[i].sound === "sound2") {
+                bubblePop2.play();
+            }
             score++;
             bubblesArray[i].counted = true;
             bubblesArray.splice(i, 1);
