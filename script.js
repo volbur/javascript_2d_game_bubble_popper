@@ -95,6 +95,9 @@ function handleBubbles(){
     for (let i = 0; i < bubblesArray.length; i++){
         bubblesArray[i].update();
         bubblesArray[i].draw();
+        if (bubblesArray[i].y < 0) {
+            bubblesArray.splice(i, 1);
+        }
     }
 }
 // Animation Loop
