@@ -136,6 +136,7 @@ function handleBubbles(){
                 score++;
                 bubblesArray[i].counted = true;
                 bubblesArray.splice(i, 1);
+                i--;
             }
         }
     }
