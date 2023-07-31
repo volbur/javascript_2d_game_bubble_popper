@@ -156,3 +156,7 @@ function animate() {
     requestAnimationFrame(animate);
 }
 animate();
+
+window.addEventListener("resize", function() {
+    canvasPosition = canvas.getBoundingClientRect();
+});
