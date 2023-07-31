@@ -44,6 +44,8 @@ class Player {
     update() {
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
+        let theta = Math.atan2(dy, dx);
+        this.angle = theta;
         if (mouse.x != this.x) {
             this.x -= dx/30;
         }
@@ -65,6 +67,18 @@ class Player {
         ctx.fill();
         ctx.closePath();
         ctx.fillRect(this.x, this.y, this.radius, 10);
+
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle);
+        
+        if (this.x >= mouse.x) {
+            ctx.drawImage(playerLeft, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, 0 - 60, 0 - 45, this.spriteWidth / 4, this.spriteHeight / 4);
+        } else {
+            ctx.drawImage(playerRight, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, 0 - 60, 0 - 45, this.spriteWidth / 4, this.spriteHeight / 4);
+        }
+
+        ctx.restore();
     }
 }
 const player = new Player();
@@ -116,15 +130,17 @@ function handleBubbles(){
         if (bubblesArray[i].y < 0 - bubblesArray[i].radius * 2) {
             bubblesArray.splice(i, 1);
         }
-        if (bubblesArray[i].distance < bubblesArray[i].radius + player.radius) {
-            if (bubblesArray[i].sound === "sound1") {
-                bubblePop1.play();
-            } else if (bubblesArray[i].sound === "sound2") {
-                bubblePop2.play();
+        if (bubblesArray[i]) {
+            if (bubblesArray[i].distance < bubblesArray[i].radius + player.radius) {
+                if (bubblesArray[i].sound === "sound1") {
+                    bubblePop1.play();
+                } else if (bubblesArray[i].sound === "sound2") {
+                    bubblePop2.play();
+                }
+                score++;
+                bubblesArray[i].counted = true;
+                bubblesArray.splice(i, 1);
             }
-            score++;
-            bubblesArray[i].counted = true;
-            bubblesArray.splice(i, 1);
         }
     }
 }
