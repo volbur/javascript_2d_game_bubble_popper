@@ -6,8 +6,9 @@ canvas.height = 500;
 
 let score = 0;
 let gameFrame = 0;
-ctx.font = "50px Georgia";
+ctx.font = "40px Georgia";
 let gameSpeed = 1;
+let gameOver = false;
 
 // Mose Interactivity
 let canvasPosition = canvas.getBoundingClientRect();
@@ -62,12 +63,6 @@ class Player {
             ctx.lineTo(mouse.x, mouse.y);
             ctx.stroke();
         }
-        ctx.fillStyle = "red";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.closePath();
-        ctx.fillRect(this.x, this.y, this.radius, 10);
 
         ctx.save();
         ctx.translate(this.x, this.y);
@@ -181,10 +176,6 @@ class Enemy {
         this.spriteHeight = 397;
     }
     draw() {
-        ctx.fillStyle = "red";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
         ctx.drawImage(enemyImage, this.frameX * this.spriteWidth, this.frameY * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x - 60, this.y - 70, this.spriteWidth / 3, this.spriteHeight / 3)
     }
     update() {
@@ -207,12 +198,25 @@ class Enemy {
             else if (this.frame < 11) this.frameY = 2;
             else this.frameY = 0;
         }
+        // collision with player
+        const dx = this.x - player.x;
+        const dy = this.y - player.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < this.radius + player.radius) {
+            handleGameOver();
+        }
     }
 }
 const enemy1 = new Enemy();
 function handleEnemies() {
-    enemy1.update();
     enemy1.draw();
+    enemy1.update();
+}
+
+function handleGameOver() {
+    ctx.fillStyle = "white";
+    ctx.fillText("GAME OVER, you reached score " + score, 110, 250);
+    gameOver = true;
 }
 
 // Animation Loop
@@ -225,8 +229,8 @@ function animate() {
     handleEnemies();
     ctx.fillStyle = "black";
     ctx.fillText("score: " + score, 10, 50)
-    gameFrame++
-    requestAnimationFrame(animate);
+    gameFrame++;
+    if (!gameOver) requestAnimationFrame(animate);
 }
 animate();
 
