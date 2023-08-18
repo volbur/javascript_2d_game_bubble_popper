@@ -81,16 +81,12 @@ function handleBackground() {
 }
 
 const enemy1 = new Enemy(game, player);
-function handleEnemies() {
-    enemy1.draw();
-    enemy1.update();
-}
 
 const bubbles = new Bubbles(game, player);
 
 // Animation Loop
 game.addFunction(bubbles.handleBubbles.bind(bubbles))
-game.addFunction(handleEnemies)
+game.addFunction(enemy1.handleEnemies.bind(enemy1))
 game.addFunction(player.draw.bind(player))
 game.addFunction(handleBackground)
 game.addFunction(player.update.bind(player))

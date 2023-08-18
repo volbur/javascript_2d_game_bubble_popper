@@ -50,6 +50,11 @@ export default class Enemy {
         }
     }
 
+    handleEnemies() {
+        this.draw();
+        this.update();
+    }
+
     handleGameOver() {
         this.game.ctx.fillStyle = "white";
         this.game.ctx.fillText("GAME OVER, you reached score " + this.game.score, 110, 250);
