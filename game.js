@@ -12,23 +12,15 @@ export default class Game {
         this.canvas.width = 800;
         this.canvas.height = 500;
         this.ctx.font = "40px Georgia";
-        
-        // Інші властивості та ініціалізація
     }
 
-    animate() {
+    animate = () => {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
         this.callAllFunctions();
-        
-        // handleBackground();
-        // handleBubbles();
-        // player.update();
-        // player.draw();
-        // handleEnemies();
 
         this.ctx.fillStyle = "black";
-        this.ctx.fillText("score: " + score, 10, 50)
+        this.ctx.fillText("score: " + this.score, 10, 50)
         this.gameFrame++;
         if (!this.gameOver) requestAnimationFrame(this.animate);
     }
