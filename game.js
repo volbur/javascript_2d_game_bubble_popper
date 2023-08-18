@@ -40,6 +40,4 @@ export default class Game {
             func();
         });
     }
-
-    // Інші методи класу
 }
