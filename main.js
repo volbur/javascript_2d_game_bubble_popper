@@ -86,12 +86,6 @@ function handleEnemies() {
     enemy1.update();
 }
 
-function handleGameOver() {
-    game.ctx.fillStyle = "white";
-    game.ctx.fillText("GAME OVER, you reached score " + game.score, 110, 250);
-    game.gameOver = true;
-}
-
 // Animation Loop
 game.addFunction(handleBubbles)
 game.addFunction(handleEnemies)
