@@ -93,21 +93,6 @@ function handleGameOver() {
 }
 
 // Animation Loop
-function animate() {
-    game.ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
-
-    handleBubbles();
-    handleEnemies();
-    player.draw();
-    handleBackground();
-    player.update();
-
-    game.ctx.fillStyle = "black";
-    game.ctx.fillText("score: " + game.score, 10, 50)
-    game.gameFrame++;
-    if (!game.gameOver) requestAnimationFrame(animate);
-}
-
 game.addFunction(handleBubbles)
 game.addFunction(handleEnemies)
 game.addFunction(player.draw.bind(player))
