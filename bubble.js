@@ -14,8 +14,6 @@ export default class Bubble {
         this.sound = Math.random() <= 0.5 ? "sound1" : "sound2";
     }
     update = () => {
-        this
-        debugger
         this.y -= this.speed;
         const dx = this.x - this.player.x;
         const dy = this.y - this.player.y;

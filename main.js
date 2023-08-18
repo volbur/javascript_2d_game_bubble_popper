@@ -2,25 +2,15 @@ import Game from "./game.js";
 import Player from "./player.js";
 import Bubbles from "./bubbles.js";
 import Enemy from "./enemy.js";
+import Interactivity from "./interactivity.js";
 
 const game = new Game();
 
 // Mose Interactivity
-const mouse = {
-    x: game.canvas.width / 2,
-    y: game.canvas.height / 2,
-    click: false
-}
-game.canvas.addEventListener("mousedown", function(event) {
-    mouse.click = true;
-    mouse.x = event.x - game.canvasPosition.left;
-    mouse.y = event.y - game.canvasPosition.top;
-});
-game.canvas.addEventListener("mouseup", function() {
-    mouse.click = false;
-});
+const interactivity = new Interactivity(game);
+interactivity.handleInteractivity();
 
-const player = new Player(game, mouse);
+const player = new Player(game, interactivity.mouse);
 
 //Repeating backgrounds
 const background = new Image();
