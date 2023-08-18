@@ -1,6 +1,6 @@
 import Game from "./game.js";
 import Player from "./player.js";
-import Bubble from "./bubble.js";
+import Bubbles from "./bubbles.js";
 import Enemy from "./enemy.js";
 
 const game = new Game();
@@ -23,41 +23,41 @@ game.canvas.addEventListener("mouseup", function() {
 const player = new Player(game, mouse);
 
 // Bubbles
-const bubblesArray = [];
+// const bubblesArray = [];
 
-const bubblePop1 = document.createElement("audio");
-bubblePop1.src = "./scr/sound/Plop.ogg";
-const bubblePop2 = document.createElement("audio");
-bubblePop2.src = "./scr/sound/bubbles-single1.wav";
+// const bubblePop1 = document.createElement("audio");
+// bubblePop1.src = "./scr/sound/Plop.ogg";
+// const bubblePop2 = document.createElement("audio");
+// bubblePop2.src = "./scr/sound/bubbles-single1.wav";
 
-function handleBubbles(){
-    if (game.gameFrame % 50 == 0){
-        bubblesArray.push(new Bubble(game, player));
-        console.log(bubblesArray.length);
-    }
-    for (let i = 0; i < bubblesArray.length; i++){
-        bubblesArray[i].update();
-        bubblesArray[i].draw();
-        if (bubblesArray[i].y < 0 - bubblesArray[i].radius * 2) {
-            bubblesArray.splice(i, 1);
-            i--;
-        } else if (bubblesArray[i].distance < bubblesArray[i].radius + player.radius) {
-                if (bubblesArray[i].sound === "sound1") {
-                    bubblePop1.play();
-                } else if (bubblesArray[i].sound === "sound2") {
-                    bubblePop2.play();
-                }
-                game.score++;
-                bubblesArray[i].counted = true;
-                bubblesArray.splice(i, 1);
-                i--;
-            }
-        }
-    }
+// function handleBubbles(){
+//     if (game.gameFrame % 50 == 0){
+//         bubblesArray.push(new Bubble(game, player));
+//         console.log(bubblesArray.length);
+//     }
+//     for (let i = 0; i < bubblesArray.length; i++){
+//         bubblesArray[i].update();
+//         bubblesArray[i].draw();
+//         if (bubblesArray[i].y < 0 - bubblesArray[i].radius * 2) {
+//             bubblesArray.splice(i, 1);
+//             i--;
+//         } else if (bubblesArray[i].distance < bubblesArray[i].radius + player.radius) {
+//                 if (bubblesArray[i].sound === "sound1") {
+//                     bubblePop1.play();
+//                 } else if (bubblesArray[i].sound === "sound2") {
+//                     bubblePop2.play();
+//                 }
+//                 game.score++;
+//                 bubblesArray[i].counted = true;
+//                 bubblesArray.splice(i, 1);
+//                 i--;
+//             }
+//         }
+//     }
 
-    for (let i = 0; i < bubblesArray.length; i++) {
+    // for (let i = 0; i < bubblesArray.length; i++) {
         
-    }
+    // }
 
 //Repeating backgrounds
 const background = new Image();
@@ -86,8 +86,10 @@ function handleEnemies() {
     enemy1.update();
 }
 
+const bubbles = new Bubbles(game, player);
+
 // Animation Loop
-game.addFunction(handleBubbles)
+game.addFunction(bubbles.handleBubbles.bind(bubbles))
 game.addFunction(handleEnemies)
 game.addFunction(player.draw.bind(player))
 game.addFunction(handleBackground)

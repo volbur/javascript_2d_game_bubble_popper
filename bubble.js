@@ -1,7 +1,7 @@
 const bubbleImage = new Image();
 bubbleImage.src = "./scr/img/bubble_pop_frame_01.png";
 
-export default class Bubbles {
+export default class Bubble {
     constructor(game, player) {
         this.ctx = game.ctx;
         this.radius = 50;
@@ -13,13 +13,15 @@ export default class Bubbles {
         this.counted = false;
         this.sound = Math.random() <= 0.5 ? "sound1" : "sound2";
     }
-    update(){
+    update = () => {
+        this
+        debugger
         this.y -= this.speed;
         const dx = this.x - this.player.x;
         const dy = this.y - this.player.y;
         this.distance = Math.sqrt(dx * dx + dy * dy);
     }
-    draw(){
+    draw = () => {
         this.ctx.drawImage(bubbleImage, this.x - 65, this.y - 65, this.radius * 2.6, this.radius * 2.6);
     }
 }
