@@ -4,6 +4,7 @@ enemyImage.src = "./scr/img/enemy1.png";
 export default class Enemy {
     constructor(game, player) {
         this.player = player;
+        this.game = game;
         this.gameFrame = game.gameFrame;
         this.ctx = game.ctx;
         this.canvas = game.canvas;
@@ -45,7 +46,13 @@ export default class Enemy {
         const dy = this.y - this.player.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         if (distance < this.radius + this.player.radius) {
-            handleGameOver();
+            this.handleGameOver();
         }
+    }
+
+    handleGameOver() {
+        this.game.ctx.fillStyle = "white";
+        this.game.ctx.fillText("GAME OVER, you reached score " + this.game.score, 110, 250);
+        this.game.gameOver = true;
     }
 }
