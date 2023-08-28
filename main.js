@@ -4,8 +4,11 @@ import Bubbles from "./bubbles.js";
 import Enemy from "./enemy.js";
 import Interactivity from "./interactivity.js";
 import Background from "./background.js";
+import GameLevelAnimation from "./gameLevelAnimation.js";
 
 const game = new Game();
+const gameLevelAnimation = new GameLevelAnimation(game);
+gameLevelAnimation.init();
 
 // Mose Interactivity
 const interactivity = new Interactivity(game);
@@ -22,14 +25,15 @@ const enemy1 = new Enemy(game, player);
 const bubbles = new Bubbles(game, player);
 
 // Animation Loop
-game.addFunction(bubbles.handleBubbles.bind(bubbles))
-game.addFunction(enemy1.handleEnemies.bind(enemy1))
-game.addFunction(player.draw.bind(player))
-game.addFunction(background.handleBackground.bind(background))
-game.addFunction(player.update.bind(player))
+game.addFunction(gameLevelAnimation.handleBackground.bind(gameLevelAnimation));
+game.addFunction(bubbles.handleBubbles.bind(bubbles));
+game.addFunction(enemy1.handleEnemies.bind(enemy1));
+game.addFunction(player.draw.bind(player));
+game.addFunction(background.handleBackground.bind(background));
+game.addFunction(player.update.bind(player));
 
-game.animate()
+game.animate();
 
-window.addEventListener("resize", function() {
-    game.canvasPosition = game.canvas.getBoundingClientRect();
+window.addEventListener("resize", function () {
+  game.canvasPosition = game.canvas.getBoundingClientRect();
 });
