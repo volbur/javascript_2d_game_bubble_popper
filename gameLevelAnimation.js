@@ -2,11 +2,7 @@ export default class GameLevelAnimation {
 
     particleArray = [];
     // handle mouse
-    mouse = {
-        x: null,
-        y: null,
-        radius: 200
-    }
+
     adjustText = {
         x: 3,
         y: 0
@@ -25,8 +21,15 @@ export default class GameLevelAnimation {
         y: 15
     }
     
-    constructor(game) {
+    constructor(game, player) {
         this.game = game;
+        this.player = player;
+
+        this.mouse = {
+            x: this.player.x,
+            y: this.player.y,
+            radius: 200
+        }
 
         this.squareVisiblePart = {
             width: game.canvas.width,
@@ -35,12 +38,6 @@ export default class GameLevelAnimation {
     }
 
     init() {
-        const ctxGameLevelAnimation = this;
-        window.addEventListener("mousemove", function(event) {
-            ctxGameLevelAnimation.mouse.x = event.x;
-            ctxGameLevelAnimation.mouse.y = event.y;
-            console.log(ctxGameLevelAnimation.mouse.x, ctxGameLevelAnimation.mouse.y);
-        })
     
         this.game.ctx.fillStyle = this.textConfig.fillStyle;
         this.game.ctx.font = this.textConfig.font;
@@ -60,6 +57,10 @@ export default class GameLevelAnimation {
     }
 
     handleBackground() {
+        this.mouse.x = this.player.x
+        this.mouse.y = this.player.y
+
+
         this.game.ctx.clearRect(0, 0, this.game.canvas.width, this.game.canvas.height);
         for (let i = 0; i < this.particleArray.length; i++) {
             this.particleArray[i].draw();
@@ -69,12 +70,14 @@ export default class GameLevelAnimation {
 }
 
 class Particle {
+    sizeCoachee = 0.5;
+
     constructor(x, y, mouse, game) {
         this.game = game;
         this.mouse = mouse;
         this.x = x;
         this.y = y;
-        this.size = 3;
+        this.size;
         this.baseX = this.x;
         this.baseY = this.y;
         this.density = (Math.random() * 8) + 1;
@@ -86,7 +89,7 @@ class Particle {
         this.game.ctx.beginPath();
         
         if (this.distance < this.mouse.radius - 5) {
-            this.size = 13;
+            this.size = 13 * this.sizeCoachee;
             this.game.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             this.game.ctx.stroke();
             this.game.ctx.closePath();
@@ -95,14 +98,14 @@ class Particle {
             this.game.ctx.arc(this.x + 7, this.y + 1, this.size / 3.5, 0, Math.PI * 2);
         }
         else if (this.distance <= this.mouse.radius) {
-            this.size = 10;
+            this.size = 10 * this.sizeCoachee;
             this.game.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             this.game.ctx.stroke();
             this.game.ctx.closePath();
             this.game.ctx.beginPath();
             this.game.ctx.arc(this.x - 2, this.y - 2, this.size / 3, 0, Math.PI * 2);
         } else {
-            this.size = 8;
+            this.size = 8 * this.sizeCoachee;
             this.game.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             this.game.ctx.stroke();
             this.game.ctx.closePath();

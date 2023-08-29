@@ -7,14 +7,15 @@ import Background from "./background.js";
 import GameLevelAnimation from "./gameLevelAnimation.js";
 
 const game = new Game();
-const gameLevelAnimation = new GameLevelAnimation(game);
-gameLevelAnimation.init();
 
 // Mose Interactivity
 const interactivity = new Interactivity(game);
 interactivity.handleInteractivity();
 
 const player = new Player(game, interactivity.mouse);
+
+const gameLevelAnimation = new GameLevelAnimation(game, player);
+gameLevelAnimation.init();
 
 //Repeating backgrounds
 const background = new Background(game);
